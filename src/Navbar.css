@@ -1,0 +1,29 @@
+.navbar {
+    background-color: rgba(0, 0, 0, 0.771);
+    color: white;
+    padding: 20px 30px;
+  }
+  
+  .nav-menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  .nav-item {
+    margin-right: 20px;
+  }
+  
+  .nav-item:last-child {
+    margin-right: 0;
+  }
+  
+  .nav-item a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .nav-item a:hover {
+    color: blue;
+  }

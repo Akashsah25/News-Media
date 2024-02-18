@@ -1,0 +1,55 @@
+.card {
+    height: 475px;
+    width: 300px;
+    margin: 30px 5px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: beige;
+}
+
+img {
+    height: 170px;
+    width: 300px;
+    border: 1px;
+    border-radius: 5px;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    padding: 5px;
+    font-size: large;
+    font-weight: 600;
+}
+
+.card-description {
+    margin: 0px 5px;
+}
+
+.card-author {
+    text-align: right;
+    margin: 10px 20px;
+    font-weight: 400;
+}
+
+.card-date {
+   margin: 0px 10px;
+}
+
+.card-source {
+    text-align: right;
+    color: rgb(9, 25, 248);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: large;
+    font-weight: 900;
+    margin: 10px 20px;
+}
+
+.card-link {
+    margin: 5px 10px;
+    color: black;
+    text-decoration: none;
+}
