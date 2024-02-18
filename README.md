@@ -1,7 +1,7 @@
-<h3>Developed a news website in React, utilizing the News API to fetch news data.<br>
+<h4>Developed a news website in React, utilizing the News API to fetch news data.<br>
 Implemented a feature to categorize news for user choice, allowing users to easily find news of interest.<br>
 Displayed news sources to provide transparency and credibility.<br>
-Added a "read more..." option that redirects users to the source's official page for detailed information.<br></h3>
+Added a "read more..." option that redirects users to the source's official page for detailed information.<br></h4>
   
  # Getting Started with Create React App
 
