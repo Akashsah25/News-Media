@@ -1,3 +1,4 @@
+# Digital News Media
 <h4>Developed a news website in React, utilizing the News API to fetch news data.<br>
 Implemented a feature to categorize news for user choice, allowing users to easily find news of interest.<br>
 Displayed news sources to provide transparency and credibility.<br>
