@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 
 const API_KEY = process.env.REACT_APP_GNEWS_API_KEY;
 
-const IS_LOCAL = window.location.hostname === "localhost";
-
-export default function NewsApi(category) {
+export default function NewsApi(category = "general") {
   const [data, setData] = useState({
     newsdata: [],
     loading: true,
@@ -13,24 +11,36 @@ export default function NewsApi(category) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let articles = [];
+        let url;
 
-        if (IS_LOCAL) {
-          const res = await fetch(
-            `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&country=in&max=10&apikey=${API_KEY}`,
-          );
-          const result = await res.json();
-          articles = result.articles || [];
+        // Local mein direct call, Vercel pe proxy call
+        if (
+          window.location.hostname === "localhost" ||
+          window.location.hostname === "127.0.0.1"
+        ) {
+          url = `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&country=in&max=10&page=1&apikey=${API_KEY}`;
         } else {
-          const res = await fetch(`/api/news?category=${category}`);
-          const result = await res.json();
-          articles = result.articles || [];
+          url = `/api/news?category=${category}`;
         }
 
-        setData({ newsdata: articles, loading: false });
+        const response = await fetch(url);
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const result = await response.json();
+
+        setData({
+          newsdata: result.articles || [],
+          loading: false,
+        });
       } catch (error) {
         console.error("Error fetching data:", error.message);
-        setData({ newsdata: [], loading: false });
+        setData({
+          newsdata: [],
+          loading: false,
+        });
       }
     };
 

@@ -1,32 +1,37 @@
-const https = require("https");
+// api/news.js   ← Yeh file project root mein honi chahiye (src ke bahar)
 
-module.exports = function handler(req, res) {
-  const { category = "General" } = req.query;
-  const API_KEY = process.env.REACT_APP_API_KEY;
-
+export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Content-Type", "application/json");
+  res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  const url = `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&country=in&max=10&apikey=${API_KEY}`;
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
 
-  https
-    .get(url, (apiRes) => {
-      let raw = "";
+  const category = req.query.category || "general";
 
-      apiRes.on("data", (chunk) => {
-        raw += chunk;
-      });
+  const API_KEY = process.env.REACT_APP_GNEWS_API_KEY;
 
-      apiRes.on("end", () => {
-        try {
-          const parsed = JSON.parse(raw);
-          res.status(200).json({ articles: parsed.articles || [] });
-        } catch (e) {
-          res.status(500).json({ error: "Failed to parse response", raw });
-        }
-      });
-    })
-    .on("error", (err) => {
-      res.status(500).json({ error: err.message });
-    });
-};
+  if (!API_KEY) {
+    return res
+      .status(500)
+      .json({ error: "API_KEY is missing in Vercel Environment Variables" });
+  }
+
+  const url = `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&country=in&max=10&page=1&apikey=${API_KEY}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (!response.ok) {
+      return res.status(response.status).json(data);
+    }
+
+    return res.status(200).json(data);
+  } catch (error) {
+    console.error("Proxy Error:", error);
+    return res.status(500).json({ error: "Failed to fetch news" });
+  }
+}
