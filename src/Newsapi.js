@@ -2,31 +2,35 @@ import { useEffect, useState } from "react";
 
 const API_KEY = process.env.REACT_APP_GNEWS_API_KEY;
 
-console.log("api", API_KEY);
+const IS_LOCAL = window.location.hostname === "localhost";
 
 export default function NewsApi(category) {
   const [data, setData] = useState({
     newsdata: [],
     loading: true,
   });
-  console.log("catagory", category);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&country=in&max=10&page=1&apikey=${API_KEY}`,
-          //   `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&country=in&max=10&page=2&apikey=${API_KEY}`,
-        );
+        let articles = [];
 
-        const result = await response.json();
+        if (IS_LOCAL) {
+          const res = await fetch(
+            `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&country=in&max=10&apikey=${API_KEY}`,
+          );
+          const result = await res.json();
+          articles = result.articles || [];
+        } else {
+          const res = await fetch(`/api/news?category=${category}`);
+          const result = await res.json();
+          articles = result.articles || [];
+        }
 
-        setData({
-          newsdata: result.articles || [],
-          loading: false,
-        });
+        setData({ newsdata: articles, loading: false });
       } catch (error) {
         console.error("Error fetching data:", error.message);
+        setData({ newsdata: [], loading: false });
       }
     };
 
