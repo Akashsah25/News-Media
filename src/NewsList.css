@@ -1,4 +1,4 @@
-.cards{
+/* .cards{
     flex-wrap: wrap;
     display: flex;
     flex-direction: row;
@@ -12,4 +12,117 @@ h1{
 }
 span{
     color: blue;
+} */
+
+body {
+  background: #020617;
+  min-height: 100vh;
+}
+
+.page {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 48px;
+  animation: fadeDown 0.6s ease both;
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.heading h1 {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(20px, 4vw, 36px);
+  font-weight: 400;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(200, 220, 255, 0.85);
+}
+
+.heading h1 span {
+  color: #00c8ff;
+  text-shadow: 0 0 24px rgba(0, 200, 255, 0.5);
+}
+
+.heading-line {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #00c8ff, transparent);
+  margin: 14px auto 0;
+  animation: lineGrow 0.8s ease 0.3s both;
+}
+
+@keyframes lineGrow {
+  from { width: 0; opacity: 0; }
+  to   { width: 80px; opacity: 1; }
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+}
+
+.cards .items {
+  animation: cardFadeIn 0.5s ease both;
+}
+
+/* stagger delay for each card */
+.cards .items:nth-child(1)  { animation-delay: 0.05s; }
+.cards .items:nth-child(2)  { animation-delay: 0.10s; }
+.cards .items:nth-child(3)  { animation-delay: 0.15s; }
+.cards .items:nth-child(4)  { animation-delay: 0.20s; }
+.cards .items:nth-child(5)  { animation-delay: 0.25s; }
+.cards .items:nth-child(6)  { animation-delay: 0.30s; }
+.cards .items:nth-child(7)  { animation-delay: 0.35s; }
+.cards .items:nth-child(8)  { animation-delay: 0.40s; }
+.cards .items:nth-child(9)  { animation-delay: 0.45s; }
+.cards .items:nth-child(10) { animation-delay: 0.50s; }
+
+@keyframes cardFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Loading spinner */
+.loading-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 80px 0;
+  width: 100%;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 2px solid rgba(0, 200, 255, 0.1);
+  border-top: 2px solid #00c8ff;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-family: 'Orbitron', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: rgba(0, 200, 255, 0.6);
+  animation: blink 1.4s ease infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
 }

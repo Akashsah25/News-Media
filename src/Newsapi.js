@@ -4,17 +4,19 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 
 console.log("api", API_KEY);
 
-export default function useNewsApi(category) {
+export default function NewsApi(category) {
   const [data, setData] = useState({
     newsdata: [],
     loading: true,
   });
+  console.log("catagory", category);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`,
+          `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&country=in&max=10&page=1&apikey=${API_KEY}`,
+          //   `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&country=in&max=10&page=2&apikey=${API_KEY}`,
         );
 
         const result = await response.json();
