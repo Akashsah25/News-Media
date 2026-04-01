@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const API_KEY = process.env.REACT_APP_API_KEY;
+const API_KEY = process.env.REACT_APP_GNEWS_API_KEY;
 
 console.log("api", API_KEY);
 
