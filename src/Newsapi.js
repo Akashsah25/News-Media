@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
-const api_KEY = "99132a112de1478eb8001e0f25c3b68a";
+const API_KEY = process.env.REACT_APP_API_KEY;
+
+console.log("api", API_KEY);
 
 export default function useNewsApi(category) {
   const [data, setData] = useState({
@@ -12,7 +14,7 @@ export default function useNewsApi(category) {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${api_KEY}`,
+          `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`,
         );
 
         const result = await response.json();
@@ -31,5 +33,3 @@ export default function useNewsApi(category) {
 
   return data;
 }
-
-const API_KEY = "pub_67c93bb8c5e543e891a1f9a9ae1eed72";
