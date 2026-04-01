@@ -1,38 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
 
-export default function Newsapi(category) {
+const API_key = "99132a112de1478eb8001e0f25c3b68a";
 
+export default function useNewsApi(category) {
+  const [data, setData] = useState({
+    newsdata: [],
+    loading: true,
+  });
 
-    const [data, setdata] = useState(
-        {
-            newsdata: [],
-            loading: true
-        }
-    );
-
-
+  useEffect(() => {
     const fetchData = async () => {
-        try {
-            const responce = await fetch(`https://newsapi.org/v2/top-headlines?country=in&category=${category}&apiKey=5452af4b7bbd4ab8a5baf353b849d697`)
+      try {
+        const response = await fetch(
+          `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_key}`,
+        );
 
-            const result = await responce.json()
+        const result = await response.json();
 
+        setData({
+          newsdata: result.articles || [],
+          loading: false,
+        });
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    };
 
-            setdata({
-                newsdata: result.articles,
-                loading: false
-            })
+    fetchData();
+  }, [category]);
 
+  return data;
+}
 
-        } catch (error) {
-            console.error("error fetch data", error.message)
-        }
-    }
-
-    useEffect(() => { fetchData() }, [category])
-
-    return (data)
-};
-
-
+const API_KEY = "pub_67c93bb8c5e543e891a1f9a9ae1eed72";
